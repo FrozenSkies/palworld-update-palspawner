@@ -156,6 +156,12 @@ namespace DX11_Base {
 
             ImGui::SliderInt("Defense Multiply", &Config.DefuseUp, 0, 2000);
 
+            ImGui::Checkbox("Godmode", &Config.IsMuteki);
+
+            ImGui::Checkbox("Set DemiGodMode", &Config.IsMuteki);
+
+            ImGui::Checkbox("Max CarryWeight", &Config.MaxWeight);
+
             ImGui::Checkbox("Infinited Ammo", &Config.IsInfinAmmo);
 
             ImGui::Checkbox("No Reload", &Config.NoReload);
@@ -165,9 +171,8 @@ namespace DX11_Base {
 
             ImGui::Checkbox("InfStamina", &Config.IsInfStamina);
 
-            ImGui::Checkbox("Godmode", &Config.IsMuteki);
-
-            ImGui::Checkbox("Max CarryWeight", &Config.MaxWeight);
+            
+            
             if (ImGui::Checkbox("Invisible (F4)", &Config.spec))
             {
                 SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
@@ -352,7 +357,16 @@ namespace DX11_Base {
                     }
                 }
             }
+            if (ImGui::Button("Spheres", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
+                SpawnMultiple_ItemsToInventory(config::QuickItemSet::spheres);
 
+            if (ImGui::Button("Tools", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
+                SpawnMultiple_ItemsToInventory(config::QuickItemSet::tools);
+            SpawnMultiple_ItemsToInventory(config::QuickItemSet::tools);
+
+            if (ImGui::Button("Skill Fruits", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
+                SpawnMultiple_ItemsToInventory(config::QuickItemSet::skillfruits);
+        
             if (ImGui::Button("Catch Rate", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
             {
                 Config.isCatchRate = !Config.isCatchRate;
@@ -682,6 +696,29 @@ namespace DX11_Base {
                     ((SDK::APalPlayerState*)pPalCharacter->PlayerState)->RequestUnlockFastTravelPoint_ToServer(FNameKS);
                 }
 
+            }
+            if (ImGui::Button("Unlock Treasure Chests", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
+            {
+                SDK::UWorld* world = Config.GetUWorld();
+                if (!world) return;
+
+                SDK::TUObjectArray* objects = world->GObjects;
+                if (!objects) return;
+
+                for (int i = 0; i < objects->NumElements; ++i)
+                {
+                    SDK::UObject* object = objects->GetByIndex(i);
+                    if (object && object->IsA(SDK::UPalMapObjectPasswordLockModule::StaticClass()))
+                    {
+                        SDK::UPalMapObjectPasswordLockModule* locked = static_cast<SDK::UPalMapObjectPasswordLockModule*>(object);
+                        if (locked) locked->LockState = SDK::EPalMapObjectPasswordLockState::Unlock;
+                    }
+                    if (object && object->IsA(SDK::APalMapObjectTreasureBox::StaticClass()))
+                    {
+                        SDK::APalMapObjectTreasureBox* box = static_cast<SDK::APalMapObjectTreasureBox*>(object);
+                        if (box) box->BroadcastTriggerOpen();
+                    }
+                }
             }
             if (ImGui::Button("Unlock Player Chests", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
             {

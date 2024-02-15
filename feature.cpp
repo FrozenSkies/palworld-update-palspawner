@@ -265,6 +265,10 @@ void SpawnMultiple_ItemsToInventory(config::QuickItemSet Set)
 		for (int i = 0; i < IM_ARRAYSIZE(database::tools); i++)
 			AddItemToInventoryByName(InventoryData, _strdup(database::tools[i].c_str()), 1);
 		break;
+	case 5:
+		for (int i = 0; i < IM_ARRAYSIZE(database::skillfruits); i++)
+			AddItemToInventoryByName(InventoryData, _strdup(database::skillfruits[i].c_str()), 1);
+		break;
 	default:
 		break;
 	}
@@ -466,15 +470,13 @@ void ReviveLocalPlayer()
 
 void NoReload()
 {
-	APalPlayerCharacter* pPalPlayerCharacter = Config.GetPalPlayerCharacter();
-	if (!pPalPlayerCharacter)
-		return;
-	auto loadout = pPalPlayerCharacter->LoadoutSelectorComponent;
+	auto pCharacter = Config.GetPalPlayerCharacter();
+	if (!pCharacter) return;
+	auto loadout = pCharacter->LoadoutSelectorComponent;
 	//if (loadout) return;
 	SDK::UPalItemSlot* itemSlot = loadout->GetNowSelectedItemSlot(SDK::EPalPlayerInventoryType(3)); // WeaponLoadout
 	SDK::UPalDynamicItemDataBase* itemData = 0;
-	if(itemSlot)
-	itemSlot->TryGetDynamicItemData(&itemData);//crash
+	if(itemSlot) itemSlot->TryGetDynamicItemData(&itemData);
 	if (itemData) {
 		auto weaponData = (SDK::UPalDynamicWeaponItemDataBase*)itemData;
 		weaponData->RemainingBullets = 30;
@@ -492,16 +494,13 @@ void MaxWeight()
 	auto pCharacter = Config.GetPalPlayerCharacter();
 	if (!pCharacter)
 		return;
-	SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
-	if (p_appc != NULL)
+
+	if (pCharacter != NULL)
 	{
-		if (Config.GetPalPlayerCharacter()->GetPalPlayerController() != NULL)
-		{
-			if (Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState() != NULL)
-			{
-				Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState()->InventoryData->MaxInventoryWeight = 9999999;
-			}
-		}
+		auto controller = pCharacter->GetPalPlayerController(); if (controller != NULL) return;
+		auto PlayerState = controller->GetPalPlayerState(); if (PlayerState != NULL) return;
+		auto InventoryData = PlayerState->InventoryData; if (InventoryData != NULL) return;
+		InventoryData->MaxInventoryWeight = 9999999;
 	}
 
 }
@@ -619,6 +618,7 @@ void CureAll()
 		Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->SetWorkerSick_ToServer(palInstance, EPalBaseCampWorkerSickType::None);
 		pParams->GetIndividualParameter()->SaveParameter.FullStomach = pParams->GetIndividualParameter()->SaveParameter.MaxFullStomach;
 		pParams->GetIndividualParameter()->SaveParameter.SanityValue = 100;
+
 	}
 }
 // credit: xCENTx
