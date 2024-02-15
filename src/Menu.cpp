@@ -251,10 +251,9 @@ namespace DX11_Base {
             
             ImGui::Checkbox("Crafting Speed", &Config.craftspeed);
 
-            if (ImGui::Button("Fast Crafting", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
+            if (ImGui::Button("Cure All Workers", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
             {
-                
-                                
+                CureAll();
             }
             if (ImGui::Button("Fast Crafting", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
                 SetCraftingSpeed(9999.f, false);
@@ -1137,12 +1136,27 @@ namespace DX11_Base {
                 initParameters.Rank = rank;
                 initParameters.Level = level;
                 initParameters.IsRarePal = isRare;
-                initParameters.HP.Value = health*1000;
-                initParameters.MaxHP.Value = health*1000;
+                if (customStats)
+                {
+                    initParameters.HP.Value = health * 1000;
+                    initParameters.MaxHP.Value = health * 1000;
+                    initParameters.FullStomach = hunger;
+                    initParameters.MaxFullStomach = hunger;
+                    initParameters.CraftSpeed = workspeed;
+                    initParameters.Rank_Attack = attk;
+                    initParameters.Rank_Defence = defense;
+                }
+                else//legit stats
+                {
+                    initParameters.HP.Value = ((74*level)+500)*1000;
+                    initParameters.MaxHP.Value = ((74 * level) + 500) * 1000;
+                    initParameters.FullStomach = (10*level) + 100;
+                    initParameters.MaxFullStomach = 100 + (10 * level);
+                    initParameters.CraftSpeed = 92;
+                }
+
                 initParameters.MP.Value = stamina;
                 initParameters.MaxMP.Value = stamina;
-                initParameters.FullStomach = hunger;
-                initParameters.MaxFullStomach = hunger;
                 initParameters.SanityValue = 100;
                 
                 //initParameters.BaseCampWorkerEventProgressTime = 0.2f;
@@ -1155,9 +1169,8 @@ namespace DX11_Base {
                 //initParameters.UnusedStatusPoint = 5000;
                 //initParameters.Talent_Defense = defense;
                 
-                if(attk!=1000)initParameters.Rank_Attack = attk;
-                if (defense != 1000)initParameters.Rank_Defence = defense;
-                initParameters.CraftSpeed = workspeed;
+                
+                
                 initParameters.Gender = isFemale ? SDK::EPalGenderType::Female : SDK::EPalGenderType::Male;
                 
                 

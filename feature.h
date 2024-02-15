@@ -71,4 +71,6 @@ void NoReload();
 
 void MaxWeight();
 
+void CureAll();
+
 void SetBasePalsCraftingSpeed(float mNewSpeed, bool bRestoreDefault);

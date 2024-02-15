@@ -483,6 +483,15 @@ void NoReload()
 //	
 void MaxWeight()
 {
+	UWorld* pWorld = Config.GetUWorld();
+	if (!pWorld)
+	{
+		Config.MaxWeight = false;
+		return;
+	}
+	auto pCharacter = Config.GetPalPlayerCharacter();
+	if (!pCharacter)
+		return;
 	SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
 	if (p_appc != NULL)
 	{
@@ -566,7 +575,7 @@ void SetBasePalsCraftingSpeed(float mNewSpeed, bool bRestoreDefault)
 		if (!pParams)
 			return;
 
-		UPalIndividualCharacterParameter* ivParams = pParams->IndividualParameter;
+		auto ivParams = pParams->IndividualParameter;
 		if (!ivParams)
 			return;
 
@@ -586,6 +595,29 @@ void SetBasePalsCraftingSpeed(float mNewSpeed, bool bRestoreDefault)
 			}
 		}
 			
+	}
+}
+void CureAll()
+{
+
+	TArray<SDK::APalCharacter*> mPals;
+	if (!Config.GetTAllPals(&mPals))
+		return;
+
+	DWORD palsCount = mPals.Count();
+	for (int i = 0; i < palsCount; i++)
+	{
+		APalCharacter* obj = mPals[i];
+		if (!obj || !obj->IsA(APalMonsterCharacter::StaticClass()) || !Config.IsABaseWorker(obj, false))
+			continue;
+		
+		UPalCharacterParameterComponent* pParams = obj->CharacterParameterComponent;
+		if (!pParams)
+			return;
+
+		auto palInstance = pParams->IndividualHandle->ID;
+		Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->SetWorkerSick_ToServer(palInstance, EPalBaseCampWorkerSickType::None);
+
 	}
 }
 // credit: xCENTx
