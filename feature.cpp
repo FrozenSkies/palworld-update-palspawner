@@ -617,8 +617,8 @@ void CureAll()
 
 		auto palInstance = pParams->IndividualHandle->ID;
 		Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->SetWorkerSick_ToServer(palInstance, EPalBaseCampWorkerSickType::None);
-		pParams->GetIndividualParameter()->SaveParameter.FullStomach = 9999;
-		pParams->GetIndividualParameter()->SaveParameter.SanityValue = 9999;
+		pParams->GetIndividualParameter()->SaveParameter.FullStomach = pParams->GetIndividualParameter()->SaveParameter.MaxFullStomach;
+		pParams->GetIndividualParameter()->SaveParameter.SanityValue = 100;
 	}
 }
 // credit: xCENTx
