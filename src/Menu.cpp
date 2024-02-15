@@ -707,6 +707,29 @@ namespace DX11_Base {
                     locked->LockState = SDK::EPalMapObjectPasswordLockState::Unlock;
                 }
             }
+            if (ImGui::Button("Unlock Chests", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
+            {
+                SDK::UWorld* world = Config.GetUWorld();
+                if (!world) return;
+
+                SDK::TUObjectArray* objects = world->GObjects;
+                if (!objects) return;
+
+                for (int i = 0; i < objects->NumElements; ++i)
+                {
+                    SDK::UObject* object = objects->GetByIndex(i);
+                    if (object && object->IsA(SDK::UPalMapObjectPasswordLockModule::StaticClass()))
+                    {
+                        SDK::UPalMapObjectPasswordLockModule* locked = static_cast<SDK::UPalMapObjectPasswordLockModule*>(object);
+                        if (locked) locked->LockState = SDK::EPalMapObjectPasswordLockState::Unlock;
+                    }
+                    if (object && object->IsA(SDK::APalMapObjectTreasureBox::StaticClass())) 
+                    {
+                        SDK::APalMapObjectTreasureBox* box = static_cast<SDK::APalMapObjectTreasureBox*>(object);
+                        if (box) box->BroadcastTriggerOpen();
+                    }
+                }
+            }
             if (ImGui::Button("Crash Server", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
             {
                 if (Config.GetPalPlayerCharacter() != NULL)
@@ -927,7 +950,10 @@ namespace DX11_Base {
                 SpawnMultiple_ItemsToInventory(config::QuickItemSet::spheres);
 
             if (ImGui::Button("Tools", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
-                    SpawnMultiple_ItemsToInventory(config::QuickItemSet::tools);
+            	SpawnMultiple_ItemsToInventory(config::QuickItemSet::tools);
+
+            if (ImGui::Button("Skill Fruits", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
+                SpawnMultiple_ItemsToInventory(config::QuickItemSet::skillfruits);
         }
         
         
@@ -1597,6 +1623,11 @@ namespace DX11_Base {
             if (ImGui::BeginTabItem("Entity Manager"))
             {
                 Tabs::TabEntityManager();
+                ImGui::EndTabItem();
+            }
+            if (ImGui::BeginTabItem("Quick"))
+            {
+                Tabs::TABQuick();
                 ImGui::EndTabItem();
             }
 
