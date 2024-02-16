@@ -364,8 +364,9 @@ void FastRun(float mSpeed)
 	if (!Config.fastRun)speed = 1.0f;
 	pMovementComponent->MaxWalkSpeed = 350 * mSpeed;
 	pMovementComponent->MaxWalkSpeedCrouched = 350 * mSpeed;
-	pMovementComponent->SprintMaxSpeed = 350 * mSpeed;
-
+	pMovementComponent->SprintMaxSpeed = 700 * mSpeed;
+	pMovementComponent->SprintMaxAcceleration = 700 * mSpeed;
+	
 	speed = mSpeed; if (!Config.fastSwim)speed = 1.0f;
 	pMovementComponent->MaxSwimSpeed = 350 * mSpeed;
 
