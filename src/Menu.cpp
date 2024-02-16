@@ -1145,7 +1145,18 @@ namespace DX11_Base {
             ImGui::Combo("Passive 2:", &passive2, database::passive_skill_name, 65); ImGui::SameLine(); ImGui::Text(database::passive_skill_descriptions[passive2]);
             ImGui::Combo("Passive 3:", &passive3, database::passive_skill_name, 65); ImGui::SameLine(); ImGui::Text(database::passive_skill_descriptions[passive3]);
             ImGui::Combo("Passive 4:", &passive4, database::passive_skill_name, 65); ImGui::SameLine(); ImGui::Text(database::passive_skill_descriptions[passive4]);
+            ImGui::Checkbox("Custom Skills:", &customSkills);
+            if (customSkills)
+            {
+                ImGui::Combo("Equiped Skill 1", &skill1, database::pal_skills, 146);
+                ImGui::Combo("Equiped Skill 2", &skill2, database::pal_skills, 146);
+                ImGui::Combo("Equiped Skill 3", &skill3, database::pal_skills, 146);
+                ImGui::Combo("UnEquiped Skill 1", &skill4, database::pal_skills, 146);
+                ImGui::Combo("UnEquiped Skill 2", &skill5, database::pal_skills, 146);
+                ImGui::Combo("UnEquiped Skill 3", &skill6, database::pal_skills, 146);
+                ImGui::Combo("UnEquiped Skill 4", &skill7, database::pal_skills, 146);
 
+            }
             ImGui::Checkbox("Custom Stats:", &customStats);
             if (customStats)
             {
@@ -1156,23 +1167,12 @@ namespace DX11_Base {
                 ImGui::InputInt("stamina", &stamina, 1, 1000000);
                 ImGui::InputInt("workspeed", &workspeed, 1, 1000000);
             }
-            /*ImGui::Checkbox("Custom Skills:", &customSkills);
-            if (customSkills)
-            {
-                ImGui::Combo("Equiped Skill 1", &skill1, NameList);
-                ImGui::Combo("Equiped Skill 2", &skill2, NameList);
-                ImGui::Combo("Equiped Skill 3", &skill3, NameList);
-                ImGui::Combo("UnEquiped Skill 1", &skill4, NameList);
-                ImGui::Combo("UnEquiped Skill 1", &skill5, NameList);
-                ImGui::Combo("UnEquiped Skill 1", &skill6, NameList);
-                ImGui::Combo("UnEquiped Skill 1", &skill7, NameList);
 
-            }*/
             //ImGui::Text("SoTMaulder Menu");
             ImGui::Spacing();
             ImGui::Separator();
 
-
+            //crash at 18th
             if (ImGui::Button("Spawn This Pal", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25))) {
                 SDK::UWorld* pWorld = Config.GetUWorld();
                 SDK::UPalUtility* pUtility = Config.pPalUtility;
@@ -1234,12 +1234,13 @@ namespace DX11_Base {
                 if (passive3)initParameters.PassiveSkillList.Add(lib->Conv_StringToName(SDK::FString(database::passive_skill_list[passive3])));
                 if (passive4)initParameters.PassiveSkillList.Add(lib->Conv_StringToName(SDK::FString(database::passive_skill_list[passive4])));
 
-
-                //initParameters.EquipWaza.Add((SDK::EPalWazaID)1);
-
-                //initParameters.MasteredWaza.Add((SDK::EPalWazaID)1);
-
-                //initParameters.PassiveSkillList = skills;
+                if(skill1) initParameters.EquipWaza.Add((SDK::EPalWazaID)skill1);
+                if (skill2) initParameters.EquipWaza.Add((SDK::EPalWazaID)skill2);
+                if (skill3) initParameters.EquipWaza.Add((SDK::EPalWazaID)skill3);
+                if (skill4) initParameters.MasteredWaza.Add((SDK::EPalWazaID)skill4);
+                if (skill5) initParameters.MasteredWaza.Add((SDK::EPalWazaID)skill5);
+                if (skill6) initParameters.MasteredWaza.Add((SDK::EPalWazaID)skill6);
+                if (skill7) initParameters.MasteredWaza.Add((SDK::EPalWazaID)skill7);
 
 
                 SDK::FPalWorkSuitabilityInfo tempData;
@@ -1289,14 +1290,14 @@ namespace DX11_Base {
                 sp.SpawnLocation = Config.GetPalPlayerCharacter()->K2_GetActorLocation();
                 sp.SpawnLocation.X += 100; sp.SpawnLocation.Y += 100;
                 sp.SpawnRotation = Config.GetPalPlayerCharacter()->K2_GetActorRotation();
-                //sp.SpawnScale = { 0.2,0.2,0.2 };
+                sp.SpawnScale = { 1.0,1.0,1.0 };
 
 
                 sp.ControllerClass = pUtility->GetNPCManager(pWorld)->NPCAIControllerBaseClass.Get();//Config.GetPalPlayerCharacter()->AIControllerClass;
 
                 sp.SpawnCollisionHandlingOverride = SDK::ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
-                Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->CreateIndividualID_ToServer(initParameters, guid, myPlayerId.A);
+                //Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->CreateIndividualID_ToServer(initParameters, guid, myPlayerId.A);
                 Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->CreateFixedIndividualID_ToServer(*instanceid, initParameters, guid, myPlayerId.A);
                 Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->SpawnIndividualActor_ToServer(*instanceid, sp, guid);
 
