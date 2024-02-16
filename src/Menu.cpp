@@ -436,6 +436,7 @@ namespace DX11_Base {
                     Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState()->RequestSpawnMonsterForPlayer(Name, 1, 50);
                     strcpy_s(palSpawnCage, (char*)left_text.c_str());
                 }
+                i++;
                 ImGui::PopID();
             }
 
