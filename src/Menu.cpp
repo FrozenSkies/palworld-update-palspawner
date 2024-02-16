@@ -1391,19 +1391,15 @@ namespace DX11_Base {
 
                                     //Config.CloneCharacter = Character; 
                                     SDK::UKismetStringLibrary* lib = SDK::UKismetStringLibrary::GetDefaultObj();
+                                    SDK::UWorld* pWorld = Config.GetUWorld();
+                                    SDK::UPalUtility* pUtility = Config.pPalUtility;
 
                                     SDK::FGuid myPlayerId = Config.GetPalPlayerController()->GetPlayerUId();
                                     SDK::FGuid guid = SDK::UKismetGuidLibrary::GetDefaultObj()->NewGuid();
 
                                     SDK::FPalIndividualCharacterSaveParameter initParameters;
                                     initParameters = Character->GetCharacterParameterComponent()->GetIndividualParameter()->GetSaveParameter();
-                                    //Config.CloneParameters = *(SDK::FPalIndividualCharacterSaveParameter*)&initParameters;
-                                    //initParameters.Level = 50;
-                                    //initParameters.PassiveSkillList[0] = lib->Conv_StringToName(SDK::FString(L"Legend"));
-                                    //SDK::APalPlayerCharacter* pPalCharacter = Config.GetPalPlayerCharacter();
-                                    // = pPalCharacter->GetCharacterParameterComponent()->GetIndividualParameter()->IndividualId;
-                                    
-                                    
+                                                                        
                                     SDK::FPalInstanceID instanceid = Config.GetPalPlayerCharacter()->CharacterParameterComponent->IndividualHandle->ID;
                                     instanceid.InstanceId = guid;
                                                                         
@@ -1419,9 +1415,8 @@ namespace DX11_Base {
                                     sp.SpawnRotation = Config.GetPalPlayerCharacter()->K2_GetActorRotation();
                                     sp.SpawnScale = { 1.0,1.0,1.0 };
 
-                                    SDK::UWorld* pWorld = Config.GetUWorld();
-                                    SDK::UPalUtility* pUtility = Config.pPalUtility;
                                     sp.ControllerClass = pUtility->GetNPCManager(pWorld)->NPCAIControllerBaseClass.Get();//Character->AIControllerClass;
+                                    
                                     //Config.CloneController = Character->AIControllerClass;
                                     sp.SpawnCollisionHandlingOverride = SDK::ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
