@@ -1211,7 +1211,7 @@ namespace DX11_Base {
                 //initParameters.BaseCampWorkerEventProgressTime = 0.2f;
                 //initParameters.PalReviveTimer = 0.001f;
                 
-                initParameters.CharacterClass = pUtility->GetNPCManager(pWorld)->NPCAIControllerBaseClass;
+                //initParameters.CharacterClass = pUtility->GetNPCManager(pWorld)->NPCAIControllerBaseClass;
 
                 //initParameters.Talent_Melee = attk;
                 //initParameters.Talent_Shot = attk;
