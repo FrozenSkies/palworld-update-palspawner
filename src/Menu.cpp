@@ -1175,7 +1175,7 @@ namespace DX11_Base {
                 SDK::FGuid myPlayerId = Config.GetPalPlayerController()->GetPlayerUId();
                 SDK::FGuid guid = SDK::UKismetGuidLibrary::GetDefaultObj()->NewGuid();
 
-                static SDK::FPalIndividualCharacterSaveParameter initParameters;
+                SDK::FPalIndividualCharacterSaveParameter initParameters;
                 
 
 
