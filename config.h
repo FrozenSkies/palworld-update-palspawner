@@ -26,12 +26,14 @@ public:
 	bool IsDefuseModiler = false;
 	bool IsInfStamina = false;
 	bool NoReload = false;
-	bool IsSafe = true;
+	bool IsSafe = false;
 	bool IsInfinAmmo = false;
 	bool IsToggledFly = false;
 	bool IsForgeMode = false;
 	bool IsTeleportAllToXhair = false;
+	bool godMode = false;
 	bool IsMuteki = false;
+	bool infShield = false;
 	bool IsMonster = false;
 	bool IsQuick = false;
 	bool matchDbItems = true;

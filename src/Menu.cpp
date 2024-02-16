@@ -156,9 +156,11 @@ namespace DX11_Base {
 
             ImGui::SliderInt("Defense Multiply", &Config.DefuseUp, 0, 2000);
 
-            ImGui::Checkbox("Godmode", &Config.IsMuteki);
+            ImGui::Checkbox("Godmode", &Config.godMode);
 
-            ImGui::Checkbox("Set DemiGodMode", &Config.IsMuteki);
+            ImGui::Checkbox("Infinite Shield", &Config.infShield);
+
+            ImGui::Checkbox("Monsters Ignore you", &Config.IsMuteki);
 
             ImGui::Checkbox("Max CarryWeight", &Config.MaxWeight);
 
@@ -362,7 +364,7 @@ namespace DX11_Base {
 
             if (ImGui::Button("Tools", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
                 SpawnMultiple_ItemsToInventory(config::QuickItemSet::tools);
-            SpawnMultiple_ItemsToInventory(config::QuickItemSet::tools);
+            
 
             if (ImGui::Button("Skill Fruits", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
                 SpawnMultiple_ItemsToInventory(config::QuickItemSet::skillfruits);
@@ -1797,9 +1799,10 @@ namespace DX11_Base {
                 Config.GetPalPlayerCharacter()->ShooterComponent->GetHasWeapon()->IsRequiredBullet = !Config.IsInfinAmmo;
             }
         }
-
+        if (Config.IsMuteki || Config.infShield)
+            InfiniteShield(Config.IsMuteki);
         //
-        if (Config.IsMuteki)
+        if (Config.godMode)
         {
             if (Config.GetPalPlayerCharacter() && Config.GetPalPlayerCharacter()->CharacterParameterComponent && Config.GetPalPlayerCharacter()->CharacterParameterComponent->IndividualParameter)
             {

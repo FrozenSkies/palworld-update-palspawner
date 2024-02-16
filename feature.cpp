@@ -415,7 +415,7 @@ void DeathAura(__int32 dmgAmount, float mDistance, bool bIntensityEffect, bool b
 
 
 //	
-void SetDemiGodMode(bool bIsSet)
+void InfiniteShield(bool bIsSet)
 {
 	auto pCharacter = Config.GetPalPlayerCharacter();
 	if (!pCharacter)
@@ -431,11 +431,13 @@ void SetDemiGodMode(bool bIsSet)
 
 	auto sParams = mIVs->SaveParameter;
 
-	pParams->bIsEnableMuteki = bIsSet;	//	Credit: Mokobake
-	if (!bIsSet)
-		return;
+	if (bIsSet)
+		pParams->bIsEnableMuteki = bIsSet;	//	Credit: Mokobake
 
-	//	attempt additional parameters
+	if(Config.infShield)
+		mIVs->SetShieldHP(sParams.ShieldMaxHP);
+	//	attempt test additional parameters
+	
 	sParams.HP.Value = sParams.MaxHP.Value;
 	sParams.MP.Value = sParams.MaxMP.Value;
 	sParams.FullStomach = sParams.MaxFullStomach;
