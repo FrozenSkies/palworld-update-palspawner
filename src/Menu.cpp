@@ -140,7 +140,7 @@ namespace DX11_Base {
     }
 
 
-    namespace Tabs 
+    namespace Tabs
     {
         void TABPlayer()
         {
@@ -161,11 +161,11 @@ namespace DX11_Base {
                 ImGui::Checkbox("Fast Glider", &Config.fastGlider);
                 ImGui::Separator();
             }
-            
+
             ImGui::Checkbox("Damage", &Config.IsAttackModiler);
-            if(Config.IsAttackModiler)
+            if (Config.IsAttackModiler)
                 ImGui::SliderInt("Damage Multiply", &Config.DamageUp, 0, 2000);
-            
+
             ImGui::Checkbox("DefenseHack", &Config.IsDefuseModiler);
 
             if (Config.IsDefuseModiler)
@@ -186,8 +186,8 @@ namespace DX11_Base {
 
             ImGui::Checkbox("InfStamina", &Config.IsInfStamina);
 
-            
-            
+
+
             if (ImGui::Checkbox("Invisible (F4)", &Config.spec))
             {
                 SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
@@ -200,7 +200,7 @@ namespace DX11_Base {
                     }
                 }
             }
-                
+
             //ImGui::Checkbox("Revive", &Config.IsRevive);
 
 
@@ -265,10 +265,10 @@ namespace DX11_Base {
                 }
             }
         }
-        
+
         void TABMisc()
         {
-            
+
             ImGui::Checkbox("Crafting Speed", &Config.craftspeed);
 
             if (ImGui::Button("Cure All Workers", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
@@ -377,11 +377,11 @@ namespace DX11_Base {
 
             if (ImGui::Button("Tools", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
                 SpawnMultiple_ItemsToInventory(config::QuickItemSet::tools);
-            
+
 
             if (ImGui::Button("Skill Fruits", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
                 SpawnMultiple_ItemsToInventory(config::QuickItemSet::skillfruits);
-        
+
             if (ImGui::Button("Catch Rate", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
             {
                 Config.isCatchRate = !Config.isCatchRate;
@@ -406,7 +406,7 @@ namespace DX11_Base {
             int i = 0;
             static int selectedid = 0;
             for (const auto& pal : list) {
-                
+
                 std::istringstream ss(pal);
                 std::string left_text, right_text;
 
@@ -426,7 +426,7 @@ namespace DX11_Base {
 
                 bool isSelected = selectedid == i;
                 ImGui::PushID(pal);
-                if (ImGui::Selectable(right_text.c_str(),isSelected))
+                if (ImGui::Selectable(right_text.c_str(), isSelected))
                 {
                     selectedid = i;
                     static SDK::UKismetStringLibrary* lib = SDK::UKismetStringLibrary::GetDefaultObj();
@@ -514,7 +514,7 @@ namespace DX11_Base {
                 }
             }
 
-            if (ImGui::BeginListBox("##LIST_LOCATIONS", ImVec2(ImGui::GetContentRegionAvail().x/2, 500)))
+            if (ImGui::BeginListBox("##LIST_LOCATIONS", ImVec2(ImGui::GetContentRegionAvail().x / 2, 500)))
             {
                 for (const auto& pair : database::locationMap)
                 {
@@ -530,7 +530,7 @@ namespace DX11_Base {
             if (Config.db_waypoints.size() > 0)
             {
                 ImGui::SameLine();
-                if (ImGui::BeginListBox("##LIST_WAYPOINTS", { ImGui::GetContentRegionAvail().x/2, 250 }))
+                if (ImGui::BeginListBox("##LIST_WAYPOINTS", { ImGui::GetContentRegionAvail().x / 2, 250 }))
                 {
                     DWORD index = -1;
                     for (auto waypoint : Config.db_waypoints)
@@ -823,7 +823,7 @@ namespace DX11_Base {
                 }
             }
 
-            
+
 
             if (ImGui::Checkbox("TELEPORT PALS TO XHAIR", &Config.IsTeleportAllToXhair) && !Config.IsTeleportAllToXhair)
                 Config.mDebugEntCapDistance = 10.f;
@@ -847,10 +847,10 @@ namespace DX11_Base {
                 ImGui::SliderInt("##AURA_DMG", &Config.mDeathAuraAmount, 1, 10, "%d", ImGuiSliderFlags_AlwaysClamp);
             }
         }
-        
+
         void TABConfig()
         {
-            
+
             ImGui::Text("PalCrack Menu");
             ImGui::Text("Version: v1.0");
             ImGui::Text("This is just an Free ModMenu. if you paid for this you have been scammed");
@@ -868,8 +868,8 @@ namespace DX11_Base {
                 g_KillSwitch = TRUE;
             }
         }
-        
-        
+
+
 
         void TABItemSpawner()
         {
@@ -985,10 +985,10 @@ namespace DX11_Base {
                 SpawnMultiple_ItemsToInventory(config::QuickItemSet::spheres);
 
             if (ImGui::Button("Tools", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
-                    SpawnMultiple_ItemsToInventory(config::QuickItemSet::tools);
+                SpawnMultiple_ItemsToInventory(config::QuickItemSet::tools);
         }
-        
-        
+
+
         void TABDebug()
         {
             if (ImGui::Checkbox("DEBUG ESP", &Config.isDebugESP) && !Config.isDebugESP)
@@ -1006,11 +1006,11 @@ namespace DX11_Base {
                 SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
                 if (p_appc)
                     g_Console->printdbg("\n\n[+] APalPlayerCharacter: 0x%llX\n", Console::Colors::green, p_appc);
-                
+
             }
             if (ImGui::Button("Print All Players", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
             {
-                
+
                 SDK::TArray<SDK::APalCharacter*> OutPlayers;
                 SDK::UPalUtility::GetDefaultObj()->GetAllPlayerCharacters(Config.GetUWorld(), &OutPlayers);
                 for (int i = 0; i < OutPlayers.Count(); i++)
@@ -1022,7 +1022,7 @@ namespace DX11_Base {
                     g_Console->printdbg("\n[+] APalPlayerCharacter: %s\n", Console::Colors::green, name.c_str());
                 }
             }
-            
+
             if (ImGui::Button("Style Editor", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
             {
                 g_GameVariables->m_ShowDemo = !g_GameVariables->m_ShowDemo;
@@ -1066,7 +1066,7 @@ namespace DX11_Base {
 
             }
 
-            
+
 
             if (ImGui::Button("PRINT ENGINE GLOBALS", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25)))
             {
@@ -1096,14 +1096,14 @@ namespace DX11_Base {
         }
         void TABPalSpawner()
         {
-            static int level = 50,nameIdx,rank = 5,health = 10000, hunger = 10000,attk = 1000,defense = 1000,stamina = 1000,workspeed = 1000;
-            static int passive1=64, passive2=55, passive3=50, passive4=39;
+            static int level = 50, nameIdx, rank = 5, health = 10000, hunger = 10000, attk = 1000, defense = 1000, stamina = 1000, workspeed = 1000;
+            static int passive1 = 64, passive2 = 55, passive3 = 50, passive4 = 39;
             static int skill1, skill2, skill3, skill4, skill5, skill6, skill7;
-            static bool isBoss, isRare,isFemale,customStats,customSkills;
+            static bool isBoss, isRare, isFemale, customStats, customSkills;
             static bool None, EmitFlame, Watering, Seeding, GenerateElectricity, Handcraft, Collection, Deforest, Mining, OilExtraction, ProductMedicine, Cool, Transport, MonsterFarm, Anyone, MAX;
 
             static char filter[30];
-            
+
             static int currentIndex = 0;
             // Open combo box
             if (ImGui::BeginCombo(":Pal Name", database::pals_realnames[currentIndex]))
@@ -1127,7 +1127,7 @@ namespace DX11_Base {
                             currentIndex = i;
                             nameIdx = i;
                         }
-                            
+
 
                         if (is_selected)
                             ImGui::SetItemDefaultFocus(); // Set the initial focus when opening the combo
@@ -1171,19 +1171,19 @@ namespace DX11_Base {
             //ImGui::Text("SoTMaulder Menu");
             ImGui::Spacing();
             ImGui::Separator();
-            
+
 
             if (ImGui::Button("Spawn This Pal", ImVec2(ImGui::GetContentRegionAvail().x - 3, 25))) {
                 SDK::UWorld* pWorld = Config.GetUWorld();
                 SDK::UPalUtility* pUtility = Config.pPalUtility;
                 SDK::UKismetStringLibrary* lib = SDK::UKismetStringLibrary::GetDefaultObj();
+                auto pController = Config.GetPalPlayerController();
+                if (!pController || !pWorld || !pUtility || !lib)return;//empty object check to prevent crash
 
-                SDK::FGuid myPlayerId = Config.GetPalPlayerController()->GetPlayerUId();
+                SDK::FGuid myPlayerId = pController->GetPlayerUId();
                 SDK::FGuid guid = SDK::UKismetGuidLibrary::GetDefaultObj()->NewGuid();
 
-                SDK::FPalIndividualCharacterSaveParameter initParameters;
-                
-
+                SDK::FPalIndividualCharacterSaveParameter initParameters = {};
 
                 initParameters.NickName = SDK::FString(database::db_palnames[nameIdx]);
                 initParameters.CharacterID = lib->Conv_StringToName(SDK::FString(database::pals_codenames[nameIdx]));
@@ -1203,45 +1203,46 @@ namespace DX11_Base {
                 }
                 else//legit stats
                 {
-                    initParameters.HP.Value = ((74*level)+500)*1000;
+                    initParameters.HP.Value = ((74 * level) + 500) * 1000;
                     initParameters.MaxHP.Value = ((74 * level) + 500) * 1000;
-                    initParameters.FullStomach = (10*level) + 100;
-                    initParameters.MaxFullStomach = 100 + (10 * level);
+                    initParameters.FullStomach = 600;
+                    initParameters.MaxFullStomach = 600;
                     initParameters.CraftSpeed = 92;
                 }
 
                 initParameters.MP.Value = stamina;
                 initParameters.MaxMP.Value = stamina;
                 initParameters.SanityValue = 100;
-                
+
                 //initParameters.BaseCampWorkerEventProgressTime = 0.2f;
                 //initParameters.PalReviveTimer = 0.001f;
-                
+
                 //initParameters.CharacterClass = pUtility->GetNPCManager(pWorld)->NPCAIControllerBaseClass;
 
                 //initParameters.Talent_Melee = attk;
                 //initParameters.Talent_Shot = attk;
                 //initParameters.UnusedStatusPoint = 5000;
                 //initParameters.Talent_Defense = defense;
-                
-                
-                
+
+
+
                 initParameters.Gender = isFemale ? SDK::EPalGenderType::Female : SDK::EPalGenderType::Male;
-                
-                
+
+
                 if (passive1)initParameters.PassiveSkillList.Add(lib->Conv_StringToName(SDK::FString(database::passive_skill_list[passive1])));
                 if (passive2)initParameters.PassiveSkillList.Add(lib->Conv_StringToName(SDK::FString(database::passive_skill_list[passive2])));
                 if (passive3)initParameters.PassiveSkillList.Add(lib->Conv_StringToName(SDK::FString(database::passive_skill_list[passive3])));
                 if (passive4)initParameters.PassiveSkillList.Add(lib->Conv_StringToName(SDK::FString(database::passive_skill_list[passive4])));
 
+
                 //initParameters.EquipWaza.Add((SDK::EPalWazaID)1);
-                
+
                 //initParameters.MasteredWaza.Add((SDK::EPalWazaID)1);
-                
+
                 //initParameters.PassiveSkillList = skills;
 
-                
-                SDK::FPalWorkSuitabilityInfo tempData; 
+
+                SDK::FPalWorkSuitabilityInfo tempData;
                 tempData.WorkSuitability = SDK::EPalWorkSuitability::MAX;
                 tempData.Rank = 5000;
                 initParameters.CraftSpeeds.Add(tempData);
@@ -1274,8 +1275,9 @@ namespace DX11_Base {
                 tempData.WorkSuitability = (SDK::EPalWorkSuitability)14;
                 initParameters.CraftSpeeds.Add(tempData);
 
-                SDK::FPalInstanceID instanceid = Config.GetPalPlayerCharacter()->CharacterParameterComponent->IndividualHandle->ID;
-                instanceid.InstanceId = guid;
+                //SDK::FPalInstanceID instanceid = Config.GetPalPlayerCharacter()->CharacterParameterComponent->IndividualHandle->ID;
+                SDK::FPalInstanceID* instanceid = new SDK::FPalInstanceID;
+                instanceid->InstanceId = guid;
 
                 SDK::FName Name = lib->Conv_StringToName(SDK::FString(L"None"));
 
@@ -1287,17 +1289,17 @@ namespace DX11_Base {
                 sp.SpawnLocation = Config.GetPalPlayerCharacter()->K2_GetActorLocation();
                 sp.SpawnLocation.X += 100; sp.SpawnLocation.Y += 100;
                 sp.SpawnRotation = Config.GetPalPlayerCharacter()->K2_GetActorRotation();
-                sp.SpawnScale = { 0.2,0.2,0.2 };
-                            
-                
+                //sp.SpawnScale = { 0.2,0.2,0.2 };
+
+
                 sp.ControllerClass = pUtility->GetNPCManager(pWorld)->NPCAIControllerBaseClass.Get();//Config.GetPalPlayerCharacter()->AIControllerClass;
 
                 sp.SpawnCollisionHandlingOverride = SDK::ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
                 Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->CreateIndividualID_ToServer(initParameters, guid, myPlayerId.A);
-                Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->CreateFixedIndividualID_ToServer(instanceid, initParameters, guid, myPlayerId.A);
-                Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->SpawnIndividualActor_ToServer(instanceid, sp, guid);
-                
+                Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->CreateFixedIndividualID_ToServer(*instanceid, initParameters, guid, myPlayerId.A);
+                Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->SpawnIndividualActor_ToServer(*instanceid, sp, guid);
+
             }
         }
         void TabEntityManager()
@@ -1385,9 +1387,9 @@ namespace DX11_Base {
                             ImGui::SameLine();
                             if (ImGui::Button("Set 1HP"))
                             {
-                               Damage(Character, (Character->CharacterParameterComponent->GetHP().Value - 1) / 1000);
+                                Damage(Character, (Character->CharacterParameterComponent->GetHP().Value - 1) / 1000);
                             }
-                            
+
                             if (!Actor->IsA(SDK::APalPlayerCharacter::StaticClass()))
                             {
                                 ImGui::SameLine(); if (ImGui::Button("Clone")) {
@@ -1402,10 +1404,10 @@ namespace DX11_Base {
 
                                     SDK::FPalIndividualCharacterSaveParameter initParameters;
                                     initParameters = Character->GetCharacterParameterComponent()->GetIndividualParameter()->GetSaveParameter();
-                                                                        
+
                                     SDK::FPalInstanceID instanceid = Config.GetPalPlayerCharacter()->CharacterParameterComponent->IndividualHandle->ID;
                                     instanceid.InstanceId = guid;
-                                                                        
+
                                     SDK::FName Name = lib->Conv_StringToName(SDK::FString(L"None"));
 
                                     SDK::FNetworkActorSpawnParameters sp;
@@ -1419,7 +1421,7 @@ namespace DX11_Base {
                                     sp.SpawnScale = { 1.0,1.0,1.0 };
 
                                     sp.ControllerClass = pUtility->GetNPCManager(pWorld)->NPCAIControllerBaseClass.Get();//Character->AIControllerClass;
-                                    
+
                                     sp.SpawnCollisionHandlingOverride = SDK::ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
                                     Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->CreateIndividualID_ToServer(initParameters, guid, myPlayerId.A);
@@ -1429,9 +1431,9 @@ namespace DX11_Base {
                                     //Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->SpawnPhantomActor_ToServer(instanceid,sp, guid);
                                 }
                             }
-                            
+
                         }
-                            
+
                         if (Actor->IsA(SDK::APalCharacter::StaticClass())) {
                             ImGui::SameLine();
                             if (ImGui::Button("MaxHP")) {
@@ -1446,7 +1448,7 @@ namespace DX11_Base {
                                 if (Config.GetPalPlayerCharacter() != NULL)
                                 {
                                     auto controller = Config.GetPalPlayerCharacter()->GetPalPlayerController();
-                                    
+
                                     if (controller != NULL)
                                     {
                                         SDK::FPalSyncTeleportRequestParameter tpParam;
@@ -1455,21 +1457,21 @@ namespace DX11_Base {
                                         //tpParam.Location = { -321248.80, 208959.95, 115.59 };
                                         tpParam.Rotation = 0;
                                         tpParam.bIsFadeOutSkip = true;
-                                        
+
                                         controller->Transmitter->BossBattle->RequestBossBattleEntry_ToServer(SDK::EPalBossType::ElectricBoss, (SDK::APalPlayerCharacter*)Character);
                                         controller->Transmitter->BossBattle->RequestBossBattleStart_ToServer(SDK::EPalBossType::ElectricBoss, (SDK::APalPlayerCharacter*)Character);
                                         static_cast<SDK::APalPlayerState*>(Character->PlayerState)->GetSyncTeleportComp()->RequestSyncTeleportStart_ToServer(tpParam);
                                         static_cast<SDK::APalPlayerState*>(Character->PlayerState)->GetSyncTeleportComp()->RequestSyncTeleportMove_ToServer();
                                         static_cast<SDK::APalPlayerState*>(Character->PlayerState)->GetSyncTeleportComp()->RequestSyncTeleportEnd_ToServer();
-                                        
+
                                         //controller->CutsceneComponent->SetAutoActivate(true);
                                         controller->CutsceneComponent->PlayCutsceneToServer();
                                     }
-                                        
+
                                 }
                             }
                         }
-                        
+
                         if (Actor->IsA(SDK::APalPlayerCharacter::StaticClass())) {
                             ImGui::SameLine();
                             if (ImGui::Button("JoinGuild")) {
@@ -1547,20 +1549,20 @@ namespace DX11_Base {
             }
             //ImGui::End();
         }
-	}
+    }
 
-	void Menu::Draw()
-	{
+    void Menu::Draw()
+    {
 
-		if (g_GameVariables->m_ShowMenu)
-			MainMenu();
+        if (g_GameVariables->m_ShowMenu)
+            MainMenu();
 
-		if (g_GameVariables->m_ShowHud)
-			HUD(&g_GameVariables->m_ShowHud);
+        if (g_GameVariables->m_ShowHud)
+            HUD(&g_GameVariables->m_ShowHud);
 
-		if (g_GameVariables->m_ShowDemo)
-			ImGui::ShowDemoWindow();
-	}
+        if (g_GameVariables->m_ShowDemo)
+            ImGui::ShowDemoWindow();
+    }
     inline static std::string a_replaceAll(std::string subject, const std::string& search,
         const std::string& replace) {
         size_t pos = 0;
@@ -1570,10 +1572,10 @@ namespace DX11_Base {
         }
         return subject;
     }
-    
-	
+
+
     void Menu::MainMenu()
-	{
+    {
         if (!g_GameVariables->m_ShowDemo)
             Styles::InitStyle();
 
@@ -1592,7 +1594,7 @@ namespace DX11_Base {
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();
         }
-        
+
         ImGuiContext* pImGui = GImGui;
 
         //  Display Menu Content
@@ -1668,12 +1670,12 @@ namespace DX11_Base {
 
 
 
-        
-	}
 
-	void Menu::HUD(bool* p_open)
-	{
-        
+    }
+
+    void Menu::HUD(bool* p_open)
+    {
+
         ImGui::SetNextWindowPos(g_D3D11Window->pViewport->WorkPos);
         ImGui::SetNextWindowSize(g_D3D11Window->pViewport->WorkSize);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, NULL);
@@ -1703,7 +1705,7 @@ namespace DX11_Base {
             RenderWaypointsToScreen();
 
         ImGui::End();
-	}
+    }
 
     void Menu::Loops()
     {
@@ -1717,19 +1719,19 @@ namespace DX11_Base {
                 {
                     Config.spec = !Config.spec;
                     Config.GetPalPlayerCharacter()->SetSpectatorMode(Config.spec);
-                    
+
                 }
             }
         }
         if (Config.craftspeed)
-            SetBasePalsCraftingSpeed(1000,0);
+            SetBasePalsCraftingSpeed(1000, 0);
 
         if ((GetAsyncKeyState(VK_F2) & 1))
             TeleportToMapMarker();
         //  Respawn
         if ((GetAsyncKeyState(VK_F5) & 1))
             ReviveLocalPlayer();
-            
+
 
         //  Revive Player
         if ((GetAsyncKeyState(VK_F6) & 1))
@@ -1752,7 +1754,7 @@ namespace DX11_Base {
         if (Config.IsAttackModiler)
         {
             restAttModifier = true;
-            SetPlayerAttackParam(Config.DamageUp*10);
+            SetPlayerAttackParam(Config.DamageUp * 10);
         }
         else if (restAttModifier)
         {
@@ -1765,17 +1767,17 @@ namespace DX11_Base {
         if (Config.IsDefuseModiler)
         {
             restDefModifier = true;
-            SetPlayerDefenseParam(Config.DefuseUp*10);
+            SetPlayerDefenseParam(Config.DefuseUp * 10);
         }
         else if (restDefModifier)
         {
             restDefModifier = false;
             SetPlayerDefenseParam(1); // Turn off the feature
         }
-        
+
         bool check = false;
         if (Config.MaxWeight || Config.MovementSpeed || Config.IsSpeedHack || Config.spec) {
-            
+
             SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
             p_appc->SetReplicateMovement(false);
             p_appc->GetPalCharacterMovementComponent()->bIgnoreClientMovementErrorChecksAndCorrection = true;
@@ -1791,7 +1793,7 @@ namespace DX11_Base {
 
         if (Config.IsTeleportAllToXhair)
             TeleportAllPalsToCrosshair(Config.mDebugEntCapDistance);
-        
+
         //
         if (Config.IsDeathAura)
             DeathAura(Config.mDeathAuraAmount, Config.mDeathAuraDistance, true);
