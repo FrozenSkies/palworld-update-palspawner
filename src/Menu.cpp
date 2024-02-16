@@ -403,7 +403,10 @@ namespace DX11_Base {
 
             ImGui::InputText("Search", pal_search, IM_ARRAYSIZE(pal_search));
             ImGui::BeginListBox("##LIST_CAGE_MONSTERS", ImVec2(ImGui::GetContentRegionAvail().x, 500));
+            int i = 0;
+            static int selectedid = 0;
             for (const auto& pal : list) {
+                
                 std::istringstream ss(pal);
                 std::string left_text, right_text;
 
@@ -421,9 +424,11 @@ namespace DX11_Base {
 
                 cur_size += right_text.length();
 
+                bool isSelected = selectedid == i;
                 ImGui::PushID(pal);
-                if (ImGui::Selectable(right_text.c_str()))
+                if (ImGui::Selectable(right_text.c_str(),isSelected))
                 {
+                    selectedid = i;
                     static SDK::UKismetStringLibrary* lib = SDK::UKismetStringLibrary::GetDefaultObj();
                     wchar_t  ws[255];
                     swprintf(ws, 255, L"%hs", left_text.c_str());
