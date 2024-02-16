@@ -346,9 +346,41 @@ void SpeedHack(float mSpeed)
 
 	pWorld->PersistentLevel->WorldSettings->TimeDilation = mSpeed;
 
-	//	pWorldSettings->TimeDilation = mSpeed;
 }
+//Fast run Credit: naythefirst && Omega172 https://www.unknowncheats.me/forum/3974115-post129.html
+void FastRun(float mSpeed)
+{
+	SDK::APalPlayerCharacter* pPalPlayerCharacter = Config.GetPalPlayerCharacter();
+	if (!pPalPlayerCharacter)
+		return;
 
+	UPalCharacterMovementComponent* pMovementComponent = pPalPlayerCharacter->GetPalCharacterMovementComponent();
+	if (!pMovementComponent)
+		return;
+
+	pMovementComponent->MaxAcceleration = 2048 * mSpeed;
+	int speed = mSpeed;
+
+	if (!Config.fastRun)speed = 1.0f;
+	pMovementComponent->MaxWalkSpeed = 350 * mSpeed;
+	pMovementComponent->MaxWalkSpeedCrouched = 350 * mSpeed;
+	pMovementComponent->SprintMaxSpeed = 350 * mSpeed;
+
+	speed = mSpeed; if (!Config.fastSwim)speed = 1.0f;
+	pMovementComponent->MaxSwimSpeed = 350 * mSpeed;
+
+	speed = mSpeed; if (!Config.fastClimb)speed = 1.0f;
+	pMovementComponent->ClimbMaxSpeed = 350 * mSpeed;
+
+	speed = mSpeed; if (!Config.fastRolling)speed = 1.0f;
+	pMovementComponent->RollingMaxSpeed = 350 * mSpeed;
+
+	speed = mSpeed; if (!Config.fastGlider)speed = 1.0f;
+	pMovementComponent->GliderMaxSpeed = 350 * mSpeed;
+
+	pMovementComponent->SlidingMaxSpeed = 350 * mSpeed;
+	pMovementComponent->MaxFlySpeed = 350 * mSpeed;
+}
 void SendDamageToActor(APalCharacter* pTarget, int32 damage, bool bSpoofAttacker)
 {
 	APalPlayerState* pPalPlayerState = Config.GetPalPlayerState();

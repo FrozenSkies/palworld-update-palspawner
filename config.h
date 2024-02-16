@@ -22,6 +22,13 @@ public:
 	bool IsFullbright = false;
 	bool IsAimbot = false;
 	bool IsSpeedHack = false;
+	bool MovementSpeed = false;
+	bool fastRun = false;
+	bool fastSwim = false;
+	bool fastClimb = false;
+	bool fastRolling = false;
+	bool fastGlider = false;
+	bool fastSliding = false;
 	bool IsAttackModiler = false;
 	bool IsDefuseModiler = false;
 	bool IsInfStamina = false;

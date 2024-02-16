@@ -25,6 +25,8 @@ void SetFullbright(bool bIsSet);
 
 void SpeedHack(float mSpeed);
 
+void FastRun(float mSpeed);
+
 void InfiniteShield(bool bIsSet);
 
 void RespawnLocalPlayer(bool bIsSafe);

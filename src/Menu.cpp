@@ -144,17 +144,30 @@ namespace DX11_Base {
     {
         void TABPlayer()
         {
-            ImGui::Checkbox("PLAYER Speed", &Config.IsSpeedHack);
+            ImGui::Checkbox("Speed Hack", &Config.IsSpeedHack);
 
-            ImGui::SliderFloat("Speed Multiply", &Config.SpeedModiflers, 1, 10);
+            if (Config.IsSpeedHack || Config.MovementSpeed)
+                ImGui::SliderFloat("Speed Multiply", &Config.SpeedModiflers, 1, 10);
 
+            ImGui::Checkbox("Movement Speed Hack", &Config.MovementSpeed);
+            if (Config.MovementSpeed)
+            {
+                ImGui::Checkbox("Fast Run", &Config.fastRun);
+                ImGui::Checkbox("Fast Swim", &Config.fastSwim);
+                ImGui::Checkbox("Fast Climb", &Config.fastClimb);
+                ImGui::Checkbox("Fast Rolling", &Config.fastRolling);
+                ImGui::Checkbox("Fast Glider", &Config.fastGlider);
+                
+            }
+            
             ImGui::Checkbox("Damage", &Config.IsAttackModiler);
-
-            ImGui::SliderInt("Damage Multiply", &Config.DamageUp, 0, 2000);
-
+            if(Config.IsAttackModiler)
+                ImGui::SliderInt("Damage Multiply", &Config.DamageUp, 0, 2000);
+            
             ImGui::Checkbox("DefenseHack", &Config.IsDefuseModiler);
 
-            ImGui::SliderInt("Defense Multiply", &Config.DefuseUp, 0, 2000);
+            if (Config.IsDefuseModiler)
+                ImGui::SliderInt("Defense Multiply", &Config.DefuseUp, 0, 2000);
 
             ImGui::Checkbox("Godmode", &Config.godMode);
 
@@ -1762,7 +1775,7 @@ namespace DX11_Base {
         }
         
         bool check = false;
-        if (Config.MaxWeight || Config.fly || Config.SuperJump || Config.spec) {
+        if (Config.MaxWeight || Config.MovementSpeed || Config.IsSpeedHack || Config.spec) {
             
             SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
             p_appc->SetReplicateMovement(false);
@@ -1773,6 +1786,10 @@ namespace DX11_Base {
             Config.GetPalPlayerCharacter()->SetReplicateMovement(true);
         }
         //
+
+        if (Config.MovementSpeed)
+            FastRun(Config.SpeedModiflers);
+
         if (Config.IsTeleportAllToXhair)
             TeleportAllPalsToCrosshair(Config.mDebugEntCapDistance);
         
