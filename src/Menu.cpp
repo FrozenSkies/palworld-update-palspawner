@@ -146,19 +146,20 @@ namespace DX11_Base {
         {
             ImGui::Checkbox("Speed Hack", &Config.IsSpeedHack);
 
-            if (Config.IsSpeedHack || Config.MovementSpeed)
+            if (Config.IsSpeedHack)
                 ImGui::SliderFloat("Speed Multiply", &Config.SpeedModiflers, 1, 10);
 
             ImGui::Checkbox("Movement Speed Hack", &Config.MovementSpeed);
             if (Config.MovementSpeed)
             {
-                ImGui::BeginChild("#movementspeed", ImVec2(200, 200), true);
-                ImGui::Checkbox("Fast Run", &Config.fastRun);
-                ImGui::Checkbox("Fast Swim", &Config.fastSwim);
-                ImGui::Checkbox("Fast Climb", &Config.fastClimb);
-                ImGui::Checkbox("Fast Rolling", &Config.fastRolling);
+                ImGui::SliderFloat("Speed Multiply", &Config.SpeedModiflers, 1, 10);
+                ("#movementspeed", ImVec2(200, 200), true);
+                ImGui::Checkbox("Fast Run", &Config.fastRun); ImGui::SameLine();
+                ImGui::Checkbox("Fast Swim", &Config.fastSwim);; ImGui::SameLine();
+                ImGui::Checkbox("Fast Climb", &Config.fastClimb);; ImGui::SameLine();
+                ImGui::Checkbox("Fast Rolling", &Config.fastRolling);; ImGui::SameLine();
                 ImGui::Checkbox("Fast Glider", &Config.fastGlider);
-                ImGui::EndChild();
+                ImGui::Separator();
             }
             
             ImGui::Checkbox("Damage", &Config.IsAttackModiler);
