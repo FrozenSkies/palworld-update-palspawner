@@ -139,12 +139,12 @@ void ESP()
 		FVector myloc = pLocalPlayer->K2_GetActorLocation();
 		FVector actorLocation = Character->K2_GetActorLocation(); actorLocation.Z += 200;
 		
-		int distance = calculateDistance(actorLocation, myloc);//pLocalPlayer->GetDistanceTo(Actor);
+		int distance = calculateDistance(actorLocation, myloc)/100;//pLocalPlayer->GetDistanceTo(Actor);
 		if (!pPlayerController->ProjectWorldLocationToScreen(actorLocation, &outScreen, true))
 			continue;
 		//name = "[Lv " + std::to_string(lvl) + "] " + name + "\n[HP:" + std::to_string(hp) + " / " + std::to_string(maxhp) + "]" + "[" + std::to_string(distance / 100) + "m]";
 		char disstr[50];
-		sprintf_s(disstr, "^2[Lv %d]^0%s\n^3[%d/%d]^0[%dm]", lvl, name, hp, maxhp, distance);
+		sprintf_s(disstr, "^2[Lv %d]^0%s\n^3[%d/%d]^5[%dm]", lvl, name, hp, maxhp, distance);
 		name = disstr;
 		DrawTextWithColorsCode(ImGui::GetFont(), name, ImVec2(outScreen.X, outScreen.Y), 14, drawColor, true,1);
 	}
