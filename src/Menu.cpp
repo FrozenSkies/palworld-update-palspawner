@@ -1109,7 +1109,7 @@ namespace DX11_Base {
             if (ImGui::BeginCombo(":Pal Name", database::pals_realnames[currentIndex]))
             {
                 ImGui::InputText("Filter", filter, IM_ARRAYSIZE(filter));
-                for (int i = 0; i < 113; ++i)
+                for (int i = 0; i < 141; ++i)
                 {
                     // Apply the filter
                     std::string name_to_lower = database::pals_realnames[i];
