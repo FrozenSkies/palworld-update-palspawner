@@ -1095,10 +1095,7 @@ namespace DX11_Base {
             static int skill1, skill2, skill3, skill4, skill5, skill6, skill7;
             static bool isBoss, isRare,isFemale,customStats,customSkills;
             static bool None, EmitFlame, Watering, Seeding, GenerateElectricity, Handcraft, Collection, Deforest, Mining, OilExtraction, ProductMedicine, Cool, Transport, MonsterFarm, Anyone, MAX;
-            //const char* NameList = "Alpaca\0AmaterasuWolf\0Anubis\0BadCatgirl\0Baphomet\0Baphomet_Dark\0Bastet\0Bastet_Ice\0BeardedDragon\0BerryGoat\0BirdDragon\0BirdDragon_Ice\0BlackCentaur\0BlackFurDragon\0BlackGriffon\0BlackMetalDragon\0BlueberryFairy\0BlueDragon\0BluePlatypus\0Boar\0BrownRabbit\0CaptainPenguin\0Carbunclo\0CatBat\0CatMage\0CatVampire\0ChickenPal\0ColorfulBird\0CowPal\0CuteButterfly\0CuteFox\0CuteMole\0DarkAlien\0DarkCrow\0DarkMechaDragon\0DarkMutant\0DarkScorpion\0Deer\0Deer_Ground\0DreamDemon\0DrillGame\0Eagle\0ElecCat\0ElecLion\0ElecPanda\0FairyDragon\0FairyDragon_Water\0FeatherOstrich\0FengyunDeeper\0FireKirin\0FireKirin_Dark\0FlameBambi\0FlameBuffalo\0FlowerDinosaur\0FlowerDinosaur_Electric\0FlowerDoll\0FlowerRabbit\0FlyingManta\0FoxMage\0Ganesha\0Garm\0GhostBeast\0GhostRabbit\0GoldenHorse\0Gorilla\0GrassDragon\0GrassMammoth\0GrassMammoth_Ice\0GrassPanda\0GrassPanda_Electric\0GrassRabbitMan\0GuardianDog\0HadesBird\0HawkBird\0Hedgehog\0Hedgehog_Ice\0HerculesBeetle\0Horus\0IceDeer\0IceFox\0IceHorse\0IceHorse_Dark\0JetDragon\0Kelpie\0Kelpie_Fire\0KingAlpaca\0KingAlpaca_Ice\0KingBahamut\0Kirin\0Kitsunebi\0LavaGirl\0LazyCatfish\0LazyDragon\0LazyDragon_Electric\0LeafPrincess\0LilyQueen\0LilyQueen_Dark\0LittleBriarRose\0LizardMan\0LizardMan_Fire\0Manticore\0Manticore_Dark\0Monkey\0MopBaby\0MopKing\0Mutant\0NaughtyCat\0NegativeKoala\0NegativeOctopus\0NightBlueHorse\0NightFox\0NightLady\0Penguin\0PinkCat\0PinkKangaroo\0PinkLizard\0PinkRabbit\0PlantSlime\0QueenBee\0RaijinDaughter\0RedArmorBird\0RobinHood\0RobinHood_Ground\0Ronin\0SaintCentaur\0SakuraSaurus\0SakuraSaurus_Water\0ScorpionMan\0Serpent\0Serpent_Ground\0SharkKid\0SharkKid_Fire\0SheepBall\0SifuDog\0SkyDragon\0SoldierBee\0Suzaku\0Suzaku_Water\0SweetsSheep\0TentacleTurtle\0ThunderBird\0ThunderDog\0ThunderDragonMan\0Umihebi\0Umihebi_Fire\0VioletFairy\0VolcanicMonster\0VolcanicMonster_Ice\0VolcanoDragon\0WaterLizard\0WeaselDragon\0Werewolf\0WhiteMoth\0WhiteTiger\0Windchimes\0Windchimes_Ice\0WingGolem\0WizardOwl\0WoolFox\0Yeti\0Yeti_Grass\0GrassBoss\0ForestBoss\0DessertBoss\0VolcanoBoss\0SnowBoss";
-            //const char* PassiveSkillList = "None\0 20% move Speed\0 30% MoveSpeed\0 20% Attk|20% Def|15% Movespeed\0 50% Work Speed\0 25% PlayerSpeed";
-            //const wchar_t *PassiveSkillParams[] = {L"None", L"MoveSpeed_up_2", L"MoveSpeed_up_3", L"Legend", L"CraftSpeed_up2", L"TrainerWorkSpeed_UP_1"};
-            //ImGui::Combo(":Pal Name", &nameIdx, database::pals_realnames,113);
+
             static char filter[30];
             
             static int currentIndex = 0;
@@ -1417,7 +1414,6 @@ namespace DX11_Base {
 
                                     sp.ControllerClass = pUtility->GetNPCManager(pWorld)->NPCAIControllerBaseClass.Get();//Character->AIControllerClass;
                                     
-                                    //Config.CloneController = Character->AIControllerClass;
                                     sp.SpawnCollisionHandlingOverride = SDK::ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
                                     Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->CreateIndividualID_ToServer(initParameters, guid, myPlayerId.A);
