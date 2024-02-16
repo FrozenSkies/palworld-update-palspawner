@@ -160,8 +160,6 @@ namespace DX11_Base {
 
             ImGui::Checkbox("Infinite Shield", &Config.infShield);
 
-            ImGui::Checkbox("Monsters Ignore you", &Config.IsMuteki);
-
             ImGui::Checkbox("Max CarryWeight", &Config.MaxWeight);
 
             ImGui::Checkbox("Infinited Ammo", &Config.IsInfinAmmo);

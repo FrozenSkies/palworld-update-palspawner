@@ -415,19 +415,16 @@ void DeathAura(__int32 dmgAmount, float mDistance, bool bIntensityEffect, bool b
 
 
 //	
-void InfiniteShield(bool bIsSet)
+void InfiniteShield(bool bIsSet)//not working
 {
 	auto pCharacter = Config.GetPalPlayerCharacter();
-	if (!pCharacter)
-		return;
+	if (!pCharacter) return;
 
 	auto pParams = pCharacter->CharacterParameterComponent;
-	if (!pParams)
-		return;
+	if (!pParams) return;
 
 	auto mIVs = pParams->IndividualParameter;
-	if (!mIVs)
-		return;
+	if (!mIVs) return;
 
 	auto sParams = mIVs->SaveParameter;
 
